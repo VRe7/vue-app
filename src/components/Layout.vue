@@ -1,37 +1,97 @@
 <template>
   <div class="app_wrapper">
+    <!--head-->
+    <head-top></head-top>
+    <!--sidebar-->
+    <sidebar></sidebar>
+    <!--masking-->
+    <masking></masking>
+    <!--footer-->
+    <foot-menu :activeIndex="0"></foot-menu>
+    <!--backToTop-->babylon
+    <back-to-top></back-to-top>
     <!-- main -->
     <div class="main_wrapper">
+      <img src="../assets/logo.png">
       <h1 class="title">{{ msg }}</h1>
     </div>
   </div>
 </template>
 
 <script>
+  import headTop from './header/head'
+  import sidebar from "./sidebar/sidebar";
+  import masking from "./masking/masking";
+  import footMenu from "@/components/footer/footer"
+  import backToTop from "./common/backToTop";
+
+
   export default {
+    components:{
+      backToTop,
+      headTop,
+      sidebar,
+      masking,
+      footMenu
+    },
     data () {
       return {
         msg: 'Welcome to Your Vue.js App'
+      }
+    },
+    methods:{
+      toggleSideBar() {
+        this.sidebar = !this.sidebar;
+        console.log("sidebar current value:" + this.sideb);
       }
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   /*layout*/
-  /*此时rem还没引入（Step3）*/
-  /*此时sass也还不能用（Step4）*/
   .app_wrapper {
-    background-color: #f2f2f2;
-    .main_wrapper{
-      .title{
-        font-size: 1rem;
-        color: #f00
+    overflow-x: hidden;
+    .header {
+      transition: all .28s ease-out;
+      transform: translateX(13rem);
+    }
+    .sidebar {
+      width: 13rem;
+      transition: all .28s ease-out;
+      transform: translate(0);
+    }
+    /*main_wrapper*/
+    .main_wrapper {
+      padding-top: 1.95rem;
+      transition: all .28s ease-out;
+      transform: translateX(13rem);
+    }
+    .footer {
+      transition: all .28s ease-out;
+      transform: translateX(13rem);
+    }
+    .backToTop {
+      transition: all .28s ease-out;
+      transform: translateX(13rem);
+    }
+
+    &.hideSidebar {
+      .header {
+        transform: translateX(0);
+      }
+      .sidebar {
+        transform: translateX(-13rem);
+      }
+      .masking {
+        display: none;
+      }
+      .main_wrapper {
+        transform: translateX(0);
+      }
+      .footer {
+        transform: translateX(0);
       }
     }
-  }
-  .main_wrapper .title {
-    font-size: 1rem;
-    color: #ff4222;
   }
 </style>
