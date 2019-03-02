@@ -1,21 +1,53 @@
-# vue-app
+## Vue练习
 
-> A Vue.js project
+###### 初始化项目结构
 
-## Build Setup
+````
+  vue-wap-demo
+  ├── build                      // 构建相关  
+  ├── config                     // 配置相关
+  ├── node_modules               // 模块安装的文件夹
+  ├── src                        // 核心代码
+  │   ├── assets                 // 静态资源
+  │   ├── components             // 组件
+  │   ├── router                 // 路由
+  │   ├── App.vue                // 入口页面
+  │   └── main.js                // 入口 加载组件 初始化等
+  ├── static                     // 第三方不打包资源
+  ├── .babelrc                   // babel-loader 配置
+  ├── .editorconfig              // 代码编辑 配置项
+  ├── .eslintignore              // eslint 忽略项
+  ├── .eslintrc.js               // eslint 配置项
+  ├── .gitignore                 // git 忽略项
+  ├── favicon.ico                // favicon图标
+  ├── index.html                 // html模板
+  ├── package-lock.json          // package-lock.json
+  ├── package.json               // package.json
+  └── �README.md                  // 说明文档
+````
 
-``` bash
-# install dependencies
-npm install
+###### Vue取消eslint语法限制
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+````
+  1: 编译报错 
+  
+  错误信息:
+  You may use special comments to disable some warnings.
+  Use // eslint-disable-next-line to ignore the next line.
+  Use /* eslint-disable */ to ignore all warnings in a file.  
+  
+  解决:
+     关闭eslint规则
+     
+     build/webpack.base.conf.js文件中,注释或删除
+     
+     module: {
+         rules: [
+           //...(config.dev.useEslint ? [createLintingRule()] : []), //注释或删除
+           {
+             test: /\.vue$/,
+             loader: 'vue-loader',
+             options: vueLoaderConfig
+           },
+           ...
+````
