@@ -1,49 +1,38 @@
 <template>
-  <div class="app_wrapper">
-    <!--head-->
-    <head-top></head-top>
-    <!--sidebar-->
-    <sidebar></sidebar>
-    <!--masking-->
-    <masking></masking>
-    <!--footer-->
-    <foot-menu :activeIndex="0"></foot-menu>
-    <!--backToTop-->babylon
-    <back-to-top></back-to-top>
+  <div class="app_wrapper" :class="{hideSidebar:sidebar}">
     <!-- main -->
-    <div class="main_wrapper">
-      <img src="../assets/logo.png">
-      <h1 class="title">{{ msg }}</h1>
-    </div>
+    <router-view></router-view>
+    <!-- sidebar -->
+    <sidebar></sidebar>
+    <!-- masking -->
+    <masking></masking>
+    <!-- backToTop -->
+    <back-to-top></back-to-top>
   </div>
 </template>
 
 <script>
-  import headTop from './header/head'
-  import sidebar from "./sidebar/sidebar";
-  import masking from "./masking/masking";
-  import footMenu from "@/components/footer/footer"
-  import backToTop from "./common/backToTop";
-
+  import { mapGetters } from 'vuex'
+  import sidebar from './sidebar/sidebar'
+  import masking from './masking/masking'
+  import backToTop from './common/backToTop'
 
   export default {
-    components:{
-      backToTop,
-      headTop,
+    components: {
       sidebar,
       masking,
-      footMenu
+      backToTop,
     },
-    data () {
-      return {
-        msg: 'Welcome to Your Vue.js App'
-      }
+
+    computed: {
+      ...mapGetters([
+        'sidebar',
+      ])
     },
-    methods:{
-      toggleSideBar() {
-        this.sidebar = !this.sidebar;
-        console.log("sidebar current value:" + this.sideb);
-      }
+    mounted() {
+      window.onscroll = () => {
+        this.$store.dispatch('SetScroll');
+      };
     }
   }
 </script>
@@ -68,10 +57,6 @@
       transform: translateX(13rem);
     }
     .footer {
-      transition: all .28s ease-out;
-      transform: translateX(13rem);
-    }
-    .backToTop {
       transition: all .28s ease-out;
       transform: translateX(13rem);
     }

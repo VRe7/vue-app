@@ -26,42 +26,42 @@
         time: 0,
       }
     },
-    mounted() {
-      window.addEventListener('scroll', this.hasScroll);
+    mounted () {
+      window.addEventListener('scroll',this.hasScroll);
     },
     methods: {
-      hasScroll() {
+      hasScroll(){
         const scrollTop = this.getScroll(window);
         this.visible = scrollTop > this.scrollHeight;
       },
-      getScroll(w) {
+      getScroll(w){
         this.ret = w.pageYOffset
         const method = 'scrollTop'
-        if (typeof this.ret !== 'number') {
-          let d = w.document;
+        if(typeof this.ret !== 'number'){
+          let d= w.document;
           this.ret = d.documentElemelnt[method]
-          if (typeof this.ret !== 'number') {
+          if(typeof this.ret !== 'number'){
             this.ret = d.body[method]
           }
         }
         return this.ret
       },
-      backTop() {
+      backTop(){
         const initerval = 30
-        let num = this.timeSpan / initerval
+        let num = this.timeSpan/initerval
         this.time = 0
         this.times = num;
         this.speed = this.ret / num
-        this.obj = setInterval(this.setScroll, initerval)
+        this.obj = setInterval(this.setScroll,initerval)
       },
-      setScroll() {
-        if (this.time > this.times || this.ret <= 0) {
+      setScroll(){
+        if(this.time > this.times || this.ret<=0){
           clearInterval(this.obj)
           return
         }
         this.time++
         this.ret -= this.speed
-        if (this.ret < 0) {
+        if(this.ret<0) {
           this.ret = 0;
         }
         document.documentElement.scrollTop = document.body.scrollTop = this.ret
